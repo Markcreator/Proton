@@ -14,11 +14,7 @@ public class Main {
 		}
 		
 		// Do things!
-		WebPane pane = new WebPane(); // New web page pane
 		String url = Main.class.getResource("html/test.html").toExternalForm(); // Get local file path
-		
-		pane.change(() -> { // Change the pane on the UI thread
-			pane.getWebEngine().load(url);
-		});
+		WebPane pane = new WebPane(url); // New web page pane
 	}
 }

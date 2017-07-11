@@ -5,12 +5,16 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class WebPane {
 
+	private Stage stage;
 	private WebView browser;
 	private WebEngine webEngine;
+	
+	public Stage getStage() {
+		return stage;
+	}
 	
 	public WebView getWebView() {
 		return browser;
@@ -20,18 +24,26 @@ public class WebPane {
 		return webEngine;
 	}
 	
-	public WebPane() {		
+	public WebPane() {
 		change(() -> {
-			Stage stage = new Stage();
+			stage = new Stage();
 			
 			// Remove window decoration
-			stage.initStyle(StageStyle.UNDECORATED);
-
+			//stage.initStyle(StageStyle.UNDECORATED);
+			
 			browser = new WebView();
 			webEngine = browser.getEngine();
 			
 			stage.setScene(new Scene(browser, 400, 400));
 			stage.show();
+		});
+	}
+	
+	public WebPane(String url) {
+		this();
+		
+		change(() -> {
+			getWebEngine().load(url);
 		});
 	}
 	
