@@ -20,7 +20,7 @@ public class WebPane {
 		return webEngine;
 	}
 	
-	public WebPane() {
+	public WebPane() {		
 		change(() -> {
 			Stage stage = new Stage();
 			
@@ -35,6 +35,7 @@ public class WebPane {
 		});
 	}
 	
+	// Run UI changes on the UI thread
 	public void change(Runnable r) {
 		Platform.runLater(r);
 	}
