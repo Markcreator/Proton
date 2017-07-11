@@ -4,19 +4,19 @@ import java.awt.Window.Type;
 
 import com.sun.glass.ui.Screen;
 
+import me.Markcreator.Proton.event.EventListener;
+import me.Markcreator.Proton.event.events.ViewManagerLoadedEvent;
+import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
+
 @SuppressWarnings("restriction")
 public class Main {
 
 	public static void main(String[] args) {
-		// Start the view manager to handle the UI thread
+		// Create the view manager to handle the UI thread
 		ViewManager.loadViewManager();
 		
 		// Wait for the view manager to initialize
-		while(ViewManager.getPrimaryStage() == null) {
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) { }
-		}
+		new EventListener(ViewManager.getInstance(), ViewManagerLoadedEvent.class).awaitEventOnce();
 		
 		// Do things!
 		String url = Main.class.getResource("html/dontsnack.html").toExternalForm(); // Get local file path
@@ -39,6 +39,13 @@ public class Main {
 			
 			// Display UI
 			pane.setVisible(true);
+		});
+		
+		// Wait for page to load
+		new EventListener(pane, WebPageLoadedEvent.class).awaitEventOnce();
+		
+		pane.change(() -> {
+			// Do things to page
 		});
 	}
 }

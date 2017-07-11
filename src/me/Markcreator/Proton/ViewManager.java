@@ -2,25 +2,27 @@ package me.Markcreator.Proton;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import me.Markcreator.Proton.event.EventCaller;
+import me.Markcreator.Proton.event.events.ViewManagerLoadedEvent;
 
-public class ViewManager extends Application {
-
-	private static Stage primaryStage;
+public class ViewManager extends Application implements EventCaller {
+	
+	private static ViewManager singleton = new ViewManager();
+	
+	public static ViewManager getInstance() {
+		return singleton;
+	}
 	
 	public static void loadViewManager() {
 		// Start JavaFX
 		Thread t = new Thread(() -> {
-			Application.launch(ViewManager.class);
+			Application.launch();
 		});
 		t.start();
 	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		ViewManager.primaryStage = primaryStage;
-	}
-	
-	public static Stage getPrimaryStage() {
-		return primaryStage;
+        callEvent(new ViewManagerLoadedEvent(this));
 	}
 }

@@ -3,13 +3,16 @@ package me.Markcreator.Proton;
 import javax.swing.JFrame;
 
 import javafx.application.Platform;
+import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import me.Markcreator.Proton.event.EventCaller;
+import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
 
 @SuppressWarnings("serial")
-public class WebPane extends JFrame {
+public class WebPane extends JFrame implements EventCaller {
 
 	private WebView browser;
 	private WebEngine webEngine;
@@ -32,6 +35,8 @@ public class WebPane extends JFrame {
 			getContentPane().add(fxPanel);
 			
 			fxPanel.setScene(new Scene(browser));
+			
+			registerEvents();
 		});
 	}
 
@@ -42,7 +47,15 @@ public class WebPane extends JFrame {
 			getWebEngine().load(url);
 		});
 	}
-
+	
+	public void registerEvents() {
+		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
+		    if (newState == State.SUCCEEDED) {
+		        callEvent(new WebPageLoadedEvent(this));
+		    }
+		});
+	}
+	
 	// Run UI changes on the UI thread
 	public void change(Runnable r) {
 		Platform.runLater(r);
