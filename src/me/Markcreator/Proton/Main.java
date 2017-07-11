@@ -8,7 +8,7 @@ import com.sun.glass.ui.Screen;
 public class Main {
 
 	public static void main(String[] args) {
-		// Start the generic view manager to handle newly made stages
+		// Start the view manager to handle the UI thread
 		ViewManager.loadViewManager();
 		
 		// Wait for the view manager to initialize
@@ -28,6 +28,7 @@ public class Main {
 			pane.setType(Type.UTILITY);
 			pane.setUndecorated(true);
 			pane.setAlwaysOnTop(true);
+			
 			pane.getWebView().setContextMenuEnabled(false);
 			
 			// Location
