@@ -8,6 +8,7 @@ public class ViewManager extends Application {
 	private static Stage primaryStage;
 	
 	public static void loadViewManager() {
+		// Start JavaFX
 		Thread t = new Thread(() -> {
 			Application.launch(ViewManager.class);
 		});

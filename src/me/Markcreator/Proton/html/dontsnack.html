@@ -1,0 +1,24 @@
+<body style="background-color:#111111;">
+	<center><b><h1 id="a" style="font-family:verdana; color:#888888;">Don't snack!</h1></b></center>
+</body>
+
+<script>
+	var a = document.getElementById("a")
+	colorCycle("")
+	
+	function colorCycle(last) {
+		setTimeout(function() {
+			var color;
+			
+			if(last == "#ff0000") {
+				color = "#888888"
+				a.style.color = color
+				colorCycle(color)
+			} else {
+				color = "#ff0000"
+				a.style.color = color
+				colorCycle(color)
+			}
+		}, 1000)
+	}
+</script>

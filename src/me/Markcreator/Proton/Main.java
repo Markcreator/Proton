@@ -1,5 +1,10 @@
 package me.Markcreator.Proton;
 
+import java.awt.Window.Type;
+
+import com.sun.glass.ui.Screen;
+
+@SuppressWarnings("restriction")
 public class Main {
 
 	public static void main(String[] args) {
@@ -14,7 +19,25 @@ public class Main {
 		}
 		
 		// Do things!
-		String url = Main.class.getResource("html/test.html").toExternalForm(); // Get local file path
+		String url = Main.class.getResource("html/dontsnack.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
+		
+		pane.change(() -> {
+			// Config
+			pane.setSize(400, 75);
+			pane.setType(Type.UTILITY);
+			pane.setUndecorated(true);
+			pane.setAlwaysOnTop(true);
+			pane.getWebView().setContextMenuEnabled(false);
+			
+			// Location
+			int screenHeight = Screen.getMainScreen().getVisibleHeight();
+			int screenWidth = Screen.getMainScreen().getVisibleWidth();
+			
+			pane.setLocation(screenWidth-pane.getWidth(), screenHeight-pane.getHeight());
+			
+			// Display UI
+			pane.setVisible(true);
+		});
 	}
 }

@@ -1,52 +1,48 @@
 package me.Markcreator.Proton;
 
+import javax.swing.JFrame;
+
 import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
-public class WebPane {
+@SuppressWarnings("serial")
+public class WebPane extends JFrame {
 
-	private Stage stage;
 	private WebView browser;
 	private WebEngine webEngine;
-	
-	public Stage getStage() {
-		return stage;
-	}
-	
+
 	public WebView getWebView() {
 		return browser;
 	}
-	
+
 	public WebEngine getWebEngine() {
 		return webEngine;
 	}
-	
+
 	public WebPane() {
 		change(() -> {
-			stage = new Stage();
-			
-			// Remove window decoration
-			//stage.initStyle(StageStyle.UNDECORATED);
-			
 			browser = new WebView();
 			webEngine = browser.getEngine();
 			
-			stage.setScene(new Scene(browser, 400, 400));
-			stage.show();
+			// JavaFX in Swing
+			JFXPanel fxPanel = new JFXPanel();
+			getContentPane().add(fxPanel);
+			
+			fxPanel.setScene(new Scene(browser));
 		});
 	}
-	
+
 	public WebPane(String url) {
 		this();
-		
+
 		change(() -> {
 			getWebEngine().load(url);
 		});
 	}
-	
+
 	// Run UI changes on the UI thread
 	public void change(Runnable r) {
 		Platform.runLater(r);
