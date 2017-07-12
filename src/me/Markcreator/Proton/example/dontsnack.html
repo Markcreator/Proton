@@ -4,21 +4,20 @@
 
 <script>
 	var a = document.getElementById("a")
-	colorCycle("")
+	var color;
 	
-	function colorCycle(last) {
+	colorCycle(color)
+	
+	function colorCycle() {
 		setTimeout(function() {
-			var color;
-			
-			if(last == "#ff0000") {
+			if(color == "#ff0000") {
 				color = "#888888"
-				a.style.color = color
-				colorCycle(color)
 			} else {
 				color = "#ff0000"
-				a.style.color = color
-				colorCycle(color)
 			}
+			
+			a.style.color = color
+			colorCycle()
 		}, 1000)
 	}
 </script>

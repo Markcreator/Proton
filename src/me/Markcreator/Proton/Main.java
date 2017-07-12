@@ -21,7 +21,7 @@ public class Main {
 		new EventListener(ViewManager.getInstance()).awaitEventOnce(ViewManagerLoadedEvent.class);
 
 		// Do things!
-		String url = Main.class.getResource("html/dontsnack.html").toExternalForm(); // Get local file path
+		String url = Main.class.getResource("example/dontsnack.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
 
 		pane.change(() -> {
@@ -30,7 +30,7 @@ public class Main {
 			pane.setType(Type.UTILITY);
 			pane.setUndecorated(true);
 			pane.setAlwaysOnTop(true);
-
+			
 			pane.getWebView().setContextMenuEnabled(false);
 
 			// Location
@@ -50,6 +50,7 @@ public class Main {
 
 				pane.change(() -> {
 					// Do things to page
+					//pane.getWebEngine().executeScript("document.getElementById('a').style.color = 'green';");
 				});
 			}
 		});

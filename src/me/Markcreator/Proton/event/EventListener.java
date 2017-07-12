@@ -20,6 +20,7 @@ public class EventListener {
 
 	public void awaitEventOnce(Class<? extends Event> eventType) {
 		this.eventType = eventType;
+		
 		caller.registerListener(this);
 
 		synchronized (this) {
