@@ -7,7 +7,9 @@ public interface EventCaller {
 	ArrayList<EventListener> listeners = new ArrayList<>();
 	
 	public default void registerListener(EventListener l) {
-		listeners.add(l);
+		if(!listeners.contains(l)) {
+			listeners.add(l);
+		}
 	}
 	
 	public default void unregisterListener(EventListener l) {
@@ -18,9 +20,13 @@ public interface EventCaller {
 		System.out.println("Calling " + event.getClass().getSimpleName());
 		
 		for(EventListener l : listeners) {
-			if(l.getEvent() == event.getClass()) {
+			if(l.getEventType().equals(event.getClass())) {
 				synchronized (l) {
 					l.notify();
+					
+					if(l.hasHandler()) {
+						l.getHandler().handle(event);
+					}
 				}
 			}
 		}

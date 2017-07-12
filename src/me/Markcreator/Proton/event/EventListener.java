@@ -3,18 +3,23 @@ package me.Markcreator.Proton.event;
 public class EventListener {
 
 	private EventCaller caller;
-	private Class<? extends Event> event;
+	private Class<? extends Event> eventType;
+	private EventHandler handler = null;
 
-	public EventListener(EventCaller caller, Class<? extends Event> event) {
+	public EventListener(EventCaller caller) {
 		this.caller = caller;
-		this.event = event;
+	}
+	
+	public Class<? extends Event> getEventType() {
+		return eventType;
+	}
+	
+	public EventHandler getHandler() {
+		return handler;
 	}
 
-	public Class<? extends Event> getEvent() {
-		return event;
-	}
-
-	public void awaitEventOnce() {
+	public void awaitEventOnce(Class<? extends Event> eventType) {
+		this.eventType = eventType;
 		caller.registerListener(this);
 
 		synchronized (this) {
@@ -27,5 +32,16 @@ public class EventListener {
 		}
 
 		caller.unregisterListener(this);
+	}
+
+	public boolean hasHandler() {
+		return getHandler() != null;
+	}
+
+	public void onEvent(EventHandler handler) {
+		this.handler = handler;
+		this.eventType = handler.getEventType();
+		
+		caller.registerListener(this);
 	}
 }
