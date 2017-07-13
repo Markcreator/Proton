@@ -30,8 +30,6 @@ public class Main {
 			pane.loadLayout(WebPaneLayout.POPUP);
 			pane.setSize(400, 75);
 			
-			pane.getWebView().setContextMenuEnabled(false);
-			
 			// Location
 			int screenHeight = Screen.getMainScreen().getVisibleHeight();
 			int screenWidth = Screen.getMainScreen().getVisibleWidth();

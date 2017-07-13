@@ -2,34 +2,35 @@ package me.Markcreator.Proton.ui;
 
 import java.awt.Window.Type;
 
-import me.Markcreator.Proton.util.MethodCall;
-import me.Markcreator.Proton.util.ReflectionUtils;
-
 public enum WebPaneLayout {
 
-	DEFAULT (new MethodCall[] {
-		
+	DEFAULT (new WebPaneLayoutBuilder() {
+		public void build(WebPane pane) {
+			pane.getWebView().setContextMenuEnabled(false);
+		}
 	}),
 	
-	POPUP (new MethodCall[] {
-		new MethodCall("setType", Type.UTILITY),
-		new MethodCall("setUndecorated", true),
-		new MethodCall("setAlwaysOnTop", true)
+	POPUP (new WebPaneLayoutBuilder() {
+		public void build(WebPane pane) {
+			pane.setType(Type.UTILITY);
+			pane.setUndecorated(true);
+			pane.setAlwaysOnTop(true);
+		}
 	}),
 	
-	APPLICATION (new MethodCall[] {
-		
+	APPLICATION (new WebPaneLayoutBuilder() {
+		public void build(WebPane pane) {
+			
+		}
 	});
 	
-	private MethodCall[] builder;
+	private WebPaneLayoutBuilder builder;
 	
-	WebPaneLayout(MethodCall[] builder) {
+	WebPaneLayout(WebPaneLayoutBuilder builder) {
 		this.builder = builder;
 	}
 	
 	public void build(WebPane pane) {
-		for(MethodCall methodCall : builder) {
-			ReflectionUtils.invoke(pane, methodCall.getMethod(), methodCall.getArgs());
-		}
+		builder.build(pane);
 	}
 }
