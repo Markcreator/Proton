@@ -1,11 +1,11 @@
 package me.Markcreator.Proton.util;
 
-public class Command {
+public class MethodCall {
 
 	private String command;
 	private Object[] args;
 	
-	public Command(String command, Object... args) {
+	public MethodCall(String command, Object... args) {
 		this.command = command;
 		this.args = args;
 	}

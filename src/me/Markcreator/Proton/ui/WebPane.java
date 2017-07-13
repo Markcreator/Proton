@@ -49,16 +49,16 @@ public class WebPane extends JFrame implements EventCaller {
 		return webEngine;
 	}
 	
-	public void loadLayout(WebPaneLayout layout) {		
-		layout.build(this);
-	}
-	
 	public void registerEvents() {
 		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
 		    if (newState == State.SUCCEEDED) {
 		        callEvent(new WebPageLoadedEvent(this));
 		    }
 		});
+	}
+	
+	public void loadLayout(WebPaneLayout layout) {
+		layout.build(this);
 	}
 	
 	// Run UI changes on the UI thread

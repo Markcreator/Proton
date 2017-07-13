@@ -6,7 +6,7 @@ public class ReflectionUtils {
 
 	public static void invoke(Object obj, String methodStr, Object... args) {
 		try {
-			Method method = obj.getClass().getMethod(methodStr, args.length == 0 ? null : getTypes(args));
+			Method method = obj.getClass().getMethod(methodStr, getTypes(args));
 			method.invoke(obj, args);
 			
 		} catch (Exception e) {
