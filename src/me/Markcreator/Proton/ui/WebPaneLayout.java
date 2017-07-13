@@ -29,7 +29,7 @@ public enum WebPaneLayout {
 	
 	public void build(WebPane pane) {
 		for(MethodCall command : builder) {
-			ReflectionUtils.invoke(pane, command.getCommand(), command.getArgs());
+			ReflectionUtils.invoke(pane, command.getMethod(), command.getArgs());
 		}
 	}
 }
