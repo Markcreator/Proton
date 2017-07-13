@@ -1,4 +1,4 @@
-package me.Markcreator.Proton;
+package me.Markcreator.Proton.ui;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

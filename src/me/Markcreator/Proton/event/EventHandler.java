@@ -1,17 +1,10 @@
 package me.Markcreator.Proton.event;
 
-public abstract class EventHandler {
+public abstract class EventHandler extends EventListener {
 
-	private Class<? extends Event> eventType;
-	
-	public EventHandler(Class<? extends Event> eventType) {
-		this.eventType = eventType;
-	}
-	
-	public Class<? extends Event> getEventType() {
-		return eventType;
+	public EventHandler(EventCaller caller) {
+		super(caller);
 	}
 	
 	public abstract void handle(Event event);
-	
 }

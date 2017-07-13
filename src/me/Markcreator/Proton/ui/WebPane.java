@@ -1,4 +1,4 @@
-package me.Markcreator.Proton;
+package me.Markcreator.Proton.ui;
 
 import javax.swing.JFrame;
 
@@ -17,14 +17,6 @@ public class WebPane extends JFrame implements EventCaller {
 	private WebView browser;
 	private WebEngine webEngine;
 
-	public WebView getWebView() {
-		return browser;
-	}
-
-	public WebEngine getWebEngine() {
-		return webEngine;
-	}
-
 	public WebPane() {
 		change(() -> {
 			browser = new WebView();
@@ -35,6 +27,7 @@ public class WebPane extends JFrame implements EventCaller {
 			getContentPane().add(fxPanel);
 			
 			fxPanel.setScene(new Scene(browser));
+			loadLayout(WebPaneLayout.DEFAULT); // Load default layout
 			
 			registerEvents();
 		});
@@ -46,6 +39,18 @@ public class WebPane extends JFrame implements EventCaller {
 		change(() -> {
 			getWebEngine().load(url);
 		});
+	}
+	
+	public WebView getWebView() {
+		return browser;
+	}
+
+	public WebEngine getWebEngine() {
+		return webEngine;
+	}
+	
+	public void loadLayout(WebPaneLayout layout) {		
+		layout.build(this);
 	}
 	
 	public void registerEvents() {

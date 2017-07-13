@@ -20,14 +20,19 @@ public interface EventCaller {
 		System.out.println("Calling " + event.getClass().getSimpleName());
 		
 		for(EventListener l : listeners) {
-			if(l.getEventType().equals(event.getClass())) {
-				synchronized (l) {
-					l.notify();
-					
-					if(l.hasHandler()) {
-						l.getHandler().handle(event);
+			if(l instanceof SingleEventWaiter) {
+				SingleEventWaiter a = (SingleEventWaiter) l;
+				
+				if(a.getEventType().equals(event.getClass())) {
+					synchronized (a) {
+						a.notify();
 					}
 				}
+				
+			} else if(l instanceof EventHandler) {
+				EventHandler h = (EventHandler) l;
+				
+				h.handle(event);
 			}
 		}
 	}
