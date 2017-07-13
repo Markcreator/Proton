@@ -25,20 +25,17 @@ public class Main {
 		String url = Main.class.getResource("examples/dontsnack.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
 
-		pane.change(() -> {
-			// Config
-			pane.loadLayout(WebPaneLayout.POPUP);
-			pane.setSize(400, 75);
-			
-			// Location
-			int screenHeight = Screen.getMainScreen().getVisibleHeight();
-			int screenWidth = Screen.getMainScreen().getVisibleWidth();
-
-			pane.setLocation(screenWidth - pane.getWidth(), screenHeight - pane.getHeight());
-			
-			// Display UI
-			pane.setVisible(true);
-		});
+		// Load UI look
+		pane.loadLayout(WebPaneLayout.POPUP);
+		pane.setSize(400, 75);
+		
+		// Display UI
+		pane.setVisible(true);
+		
+		// Location
+		int screenHeight = Screen.getMainScreen().getVisibleHeight();
+		int screenWidth = Screen.getMainScreen().getVisibleWidth();
+		pane.setLocation(screenWidth - pane.getWidth(), screenHeight - pane.getHeight());
 
 		// On page load
 		new EventHandler(pane) {

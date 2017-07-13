@@ -27,6 +27,7 @@ public class WebPane extends JFrame implements EventCaller {
 			getContentPane().add(fxPanel);
 			
 			fxPanel.setScene(new Scene(browser));
+			
 			loadLayout(WebPaneLayout.DEFAULT); // Load default layout
 			
 			registerEvents();
@@ -59,6 +60,10 @@ public class WebPane extends JFrame implements EventCaller {
 	
 	public void loadLayout(WebPaneLayout layout) {
 		layout.build(this);
+	}
+	
+	public void loadLayout(WebPaneLayoutBuilder builder) {
+		builder.build(this);
 	}
 	
 	// Run UI changes on the UI thread
