@@ -1,6 +1,8 @@
-package me.Markcreator.Proton.ui;
+package me.Markcreator.Proton.ui.layout;
 
 import java.awt.Window.Type;
+
+import me.Markcreator.Proton.ui.WebPane;
 
 public enum WebPaneLayout {
 

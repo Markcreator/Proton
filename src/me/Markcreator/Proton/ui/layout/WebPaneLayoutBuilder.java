@@ -1,4 +1,6 @@
-package me.Markcreator.Proton.ui;
+package me.Markcreator.Proton.ui.layout;
+
+import me.Markcreator.Proton.ui.WebPane;
 
 public abstract class WebPaneLayoutBuilder {
 

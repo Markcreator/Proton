@@ -9,7 +9,7 @@ import me.Markcreator.Proton.event.events.ViewManagerLoadedEvent;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
 import me.Markcreator.Proton.ui.ViewManager;
 import me.Markcreator.Proton.ui.WebPane;
-import me.Markcreator.Proton.ui.WebPaneLayout;
+import me.Markcreator.Proton.ui.layout.WebPaneLayout;
 
 @SuppressWarnings("restriction")
 public class Main {
@@ -24,7 +24,7 @@ public class Main {
 		// Do things!
 		String url = Main.class.getResource("examples/dontsnack.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
-
+		
 		// Load UI look
 		pane.loadLayout(WebPaneLayout.POPUP);
 		pane.setSize(400, 75);

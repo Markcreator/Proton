@@ -10,6 +10,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import me.Markcreator.Proton.event.EventCaller;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
+import me.Markcreator.Proton.ui.layout.WebPaneLayout;
+import me.Markcreator.Proton.ui.layout.WebPaneLayoutBuilder;
 
 @SuppressWarnings("serial")
 public class WebPane extends JFrame implements EventCaller {
@@ -58,12 +60,18 @@ public class WebPane extends JFrame implements EventCaller {
 		});
 	}
 	
+	// Layouts
 	public void loadLayout(WebPaneLayout layout) {
 		layout.build(this);
 	}
 	
 	public void loadLayout(WebPaneLayoutBuilder builder) {
 		builder.build(this);
+	}
+	
+	// Configuration methods
+	public void shutdownOnClose() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	// Run UI changes on the UI thread

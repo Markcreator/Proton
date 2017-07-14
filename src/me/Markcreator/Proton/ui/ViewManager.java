@@ -23,6 +23,6 @@ public class ViewManager extends Application implements EventCaller {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-        callEvent(new ViewManagerLoadedEvent(this));
+		 callEvent(new ViewManagerLoadedEvent(this));
 	}
 }
