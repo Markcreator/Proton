@@ -22,7 +22,7 @@ public class Main {
 		new SingleEventWaiter(ViewManager.getInstance(), ViewManagerLoadedEvent.class);
 
 		// Do things!
-		String url = Main.class.getResource("examples/dontsnack.html").toExternalForm(); // Get local file path
+		String url = Main.class.getResource("examples/test.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
 		
 		// Load UI look
@@ -48,7 +48,7 @@ public class Main {
 
 					pane.change(() -> {
 						// Do things to page
-						pane.getWebEngine().executeScript("document.getElementById('a').style.color = 'green';");
+						//pane.getWebEngine().executeScript("document.getElementById('a').style.color = 'green';");
 					});
 				}
 			}

@@ -1,4 +1,9 @@
-<body style="background-color: #4286f4;">
-	<h1 id="test">Hello!</h1>
-	<script src="test.js"></script>
+<body style="background-color: #555555;">
+	<h1 id="a">This app does not support a web version. :(</h1>
+	
+	<script>
+		function onJavaObjectShared(obj) {
+			document.getElementById("a").innerHTML = obj
+		}
+	</script>
 </body>
