@@ -35,6 +35,9 @@ public class Main {
 		// Location
 		int screenHeight = Screen.getMainScreen().getVisibleHeight();
 		int screenWidth = Screen.getMainScreen().getVisibleWidth();
+		//int screenHeight = MouseInfo.getPointerInfo().getLocation().y;
+		//int screenWidth = MouseInfo.getPointerInfo().getLocation().x;
+		
 		pane.setLocation(screenWidth - pane.getWidth(), screenHeight - pane.getHeight());
 
 		// On page load

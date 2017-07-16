@@ -5,10 +5,13 @@ import javax.swing.JFrame;
 import javafx.application.Platform;
 import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import me.Markcreator.Proton.event.EventCaller;
+import me.Markcreator.Proton.event.events.WebPageAlertEvent;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
 import me.Markcreator.Proton.ui.layout.WebPaneLayout;
 import me.Markcreator.Proton.ui.layout.WebPaneLayoutBuilder;
@@ -19,9 +22,7 @@ public class WebPane extends JFrame implements EventCaller {
 
 	private WebView browser;
 	private WebEngine webEngine;
-	
-	public String hey = "Hello!";
-	
+
 	public WebPane() {
 		change(() -> {
 			browser = new WebView();
@@ -56,11 +57,21 @@ public class WebPane extends JFrame implements EventCaller {
 	}
 
 	public void registerEvents() {
+		WebPane pane = this;
+
+		webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
+			public void handle(WebEvent<String> event) {
+				callEvent(new WebPageAlertEvent(pane, event.getData()));
+
+				System.out.println(event.getData());
+			}
+		});
+
 		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
 			if (newState == State.SUCCEEDED) {
-				shareObject("app", this);
-				
-				callEvent(new WebPageLoadedEvent(this));
+				shareObject("app", pane);
+
+				callEvent(new WebPageLoadedEvent(pane));
 			}
 		});
 	}
@@ -68,11 +79,11 @@ public class WebPane extends JFrame implements EventCaller {
 	public void shareObject(String name, Object obj) {
 		JSObject win = (JSObject) getWebEngine().executeScript("window");
 		win.setMember(name, obj);
-		getWebEngine().executeScript("try { onJavaObjectShared(" + name + ") } catch(e) { }");
-		
+		getWebEngine().executeScript("try { onJavaObjectShared(" + name + ") } catch(e) { alert('onJavaObjectShared(name) is not defined on page!') }");
+
 		System.out.println("Shared " + obj.getClass().getSimpleName());
 	}
-	
+
 	// Layouts
 	public void loadLayout(WebPaneLayout layout) {
 		layout.build(this);
