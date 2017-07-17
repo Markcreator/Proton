@@ -87,7 +87,7 @@ public class WebPane extends JFrame implements EventCaller {
 			}
 		});
 		
-		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
+		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {			
 			if (newState == State.SUCCEEDED) {
 				shareObject("app", pane);
 
@@ -99,7 +99,7 @@ public class WebPane extends JFrame implements EventCaller {
 	public void shareObject(String name, Object obj) {
 		JSObject win = (JSObject) getWebEngine().executeScript("window");
 		win.setMember(name, obj);
-		getWebEngine().executeScript("try { onJavaObjectShared(" + name + ") } catch(e) { alert('onJavaObjectShared(name) is not defined on page!') }");
+		getWebEngine().executeScript("typeof(onJavaObjectShared) == 'undefined' ? alert('onJavaObjectShared(name, obj) is not defined on page!') : onJavaObjectShared('" + name + "', " + name + ")");
 
 		System.out.println("Shared " + obj.getClass().getSimpleName());
 	}
