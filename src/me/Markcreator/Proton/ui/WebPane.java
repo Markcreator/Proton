@@ -2,6 +2,8 @@ package me.Markcreator.Proton.ui;
 
 import javax.swing.JFrame;
 
+import com.sun.javafx.webkit.WebConsoleListener;
+
 import javafx.application.Platform;
 import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
@@ -19,7 +21,7 @@ import me.Markcreator.Proton.ui.layout.WebPaneLayout;
 import me.Markcreator.Proton.ui.layout.WebPaneLayoutBuilder;
 import netscape.javascript.JSObject;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class WebPane extends JFrame implements EventCaller {
 
 	private WebView browser;
@@ -77,6 +79,14 @@ public class WebPane extends JFrame implements EventCaller {
 			}
 		});
 
+		WebConsoleListener.setDefaultListener(new WebConsoleListener() {
+			public void messageAdded(WebView view, String err, int line, String file) {
+				if(view == getWebView()) {
+					System.err.println("Error in file '" + file + "'; " + err + " at line " + line);
+				}
+			}
+		});
+		
 		getWebEngine().getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
 			if (newState == State.SUCCEEDED) {
 				shareObject("app", pane);

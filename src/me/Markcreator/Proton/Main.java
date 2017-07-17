@@ -7,12 +7,13 @@ import me.Markcreator.Proton.event.EventHandler;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
 import me.Markcreator.Proton.ui.WebPane;
 import me.Markcreator.Proton.ui.layout.WebPaneLayout;
+import me.Markcreator.Proton.util.FileUtils;
 
 @SuppressWarnings("restriction")
 public class Main {
 
 	public static void main(String[] args) {
-		String url = Main.class.getResource("examples/test.html").toExternalForm(); // Get local file path
+		String url = FileUtils.getResourcePath(Main.class, "examples/test.html"); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
 		
 		// Load UI look
