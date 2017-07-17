@@ -2,12 +2,9 @@ package me.Markcreator.Proton;
 
 import com.sun.glass.ui.Screen;
 
-import me.Markcreator.Proton.event.SingleEventWaiter;
 import me.Markcreator.Proton.event.Event;
 import me.Markcreator.Proton.event.EventHandler;
-import me.Markcreator.Proton.event.events.ViewManagerLoadedEvent;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
-import me.Markcreator.Proton.ui.ViewManager;
 import me.Markcreator.Proton.ui.WebPane;
 import me.Markcreator.Proton.ui.layout.WebPaneLayout;
 
@@ -15,13 +12,6 @@ import me.Markcreator.Proton.ui.layout.WebPaneLayout;
 public class Main {
 
 	public static void main(String[] args) {
-		// Create the view manager to handle the UI thread
-		ViewManager.loadViewManager();
-
-		// Wait for the view manager to initialize
-		new SingleEventWaiter(ViewManager.getInstance(), ViewManagerLoadedEvent.class);
-
-		// Do things!
 		String url = Main.class.getResource("examples/test.html").toExternalForm(); // Get local file path
 		WebPane pane = new WebPane(url); // New web page pane
 		

@@ -11,6 +11,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import me.Markcreator.Proton.event.EventCaller;
+import me.Markcreator.Proton.event.SingleEventWaiter;
+import me.Markcreator.Proton.event.events.WebViewManagerLoadedEvent;
 import me.Markcreator.Proton.event.events.WebPageAlertEvent;
 import me.Markcreator.Proton.event.events.WebPageLoadedEvent;
 import me.Markcreator.Proton.ui.layout.WebPaneLayout;
@@ -24,6 +26,14 @@ public class WebPane extends JFrame implements EventCaller {
 	private WebEngine webEngine;
 
 	public WebPane() {
+		if(!WebViewManager.isLoaded()) {
+			// Create the view manager to handle the UI thread
+			WebViewManager.loadViewManager();
+
+			// Wait for the view manager to initialize
+			new SingleEventWaiter(WebViewManager.getInstance(), WebViewManagerLoadedEvent.class);
+		}
+		
 		change(() -> {
 			browser = new WebView();
 			webEngine = browser.getEngine();
